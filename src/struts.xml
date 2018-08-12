@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+
+    <package name="zeng" extends="struts-default" namespace="/">
+        <!--登入验证-->
+        <action name="admin" class="com.zeng.Login.LoginAction">
+            <result name="success">/WEB-INF/page/manage.jsp</result>
+            <result name="error">/WEB-INF/page/adminLogin.jsp</result>
+        </action>
+        <!--登入页面-->
+        <action name="adminPage" class="com.zeng.Login.LoginPageAction">
+            <result name="success">/WEB-INF/page/adminLogin.jsp</result>
+        </action>
+        <!--保持文章或草稿-->
+        <action name="saveArticle" class="com.zeng.manage.article.SaveArticleAction">
+            <result name="success">/WEB-INF/page/test.jsp</result>
+        </action>
+        <!--获取文章分类-->
+        <action name="getClassification" class="com.zeng.manage.catalg.GetClassification">
+        </action>
+        <!--获取文章列表-->
+        <action name="getArticleList" class="com.zeng.manage.article.GetArticleListAction">
+        </action>
+        <!--获取日期分类-->
+        <action name="getTimeList" class="com.zeng.manage.catalg.GetTimeList"></action>
+        <!--设置分类-->
+        <action name="setClassification" class="com.zeng.manage.catalg.SetClassification"></action>
+
+        <!--获取留言-->
+        <action name="getLeaveMessage" class="com.zeng.manage.leaveMessage.getLeaveMessage"></action>
+        <action name="delArticle" class="com.zeng.manage.article.DelArticleAction"></action>
+
+        <!--修改文章-->
+        <action name="alterArticle" class="com.zeng.manage.article.AlterArticleAction">
+            <result name="success">/WEB-INF/page/alterArticle.jsp</result>
+        </action>
+    </package>
+</struts>
