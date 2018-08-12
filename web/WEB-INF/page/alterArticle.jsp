@@ -14,11 +14,31 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/source/editor.md-master/css/editormd.css" />
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
     <script>
-        function alter(id) {
+        function alter(id,isDraft) {
+
+            function artObj(title,article,tag,kind,classification,isDraft) {
+                this.title=title;
+                this.article=article;
+                this.tag=tag;
+                this.kind=kind;
+                this.classification=classification;
+                this.draft=isDraft;
+            }
+//            从页面中获取文章的而所有信息，并生成json对象,发送给服务器
+            var title=document.getElementById("title").value;//获取文章标题
+            var article=document.getElementById("text").innerHTML;//获取文章内容
+            var tag=document.getElementById("tag").value;//获取
+            var kind= $('#kind input:radio:checked').val();;//类型
+            var classification=document.getElementById("classification").value;//获取文章所属分类
+
+            var obj=new artObj(title,article,tag,kind,classification,isDraft);
+            var objJson=JSON.stringify(obj);
+
             var req=new XMLHttpRequest();
             var url="alterArticle?articleId="+id;
             req.open("POST",url,true);
-            req.send();
+            req.setRequestHeader("Content-type","application/json");
+            req.send(objJson);//发送json给服务器；
             console.log("test alter------")
         }
     </script>
@@ -63,7 +83,7 @@
 
     var put_article=document.getElementById("putArticle");
     put_article.removeAttribute("onclick");
-    put_article.setAttribute("onclick","alter(${requestScope.articleId})");
+    put_article.setAttribute("onclick","alter(${requestScope.articleId},false)");
     console.log(put_article);
 </script>
 

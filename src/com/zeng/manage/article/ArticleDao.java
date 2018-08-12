@@ -8,7 +8,7 @@ public interface ArticleDao{
     //查询文章列表
     public String queryArticle(String type,String arg,int page)throws Exception;
     //修改文章
-    public boolean alterArticle() throws Exception;
+    public boolean alterArticle(ArticleBean articleBean) throws Exception;
 
     public String getArticleCount()throws Exception;
 

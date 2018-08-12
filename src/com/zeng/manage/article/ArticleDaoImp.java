@@ -97,8 +97,22 @@ public class ArticleDaoImp implements ArticleDao{
     }
 
     @Override
-    public boolean alterArticle() throws Exception {
-        return false;
+    public boolean alterArticle(ArticleBean articleBean) throws Exception {
+        //articleBean表示修改过后的文章
+        DataBaseManage dataBaseManage=new DataBaseManage();
+        Connection conn=dataBaseManage.getConnection();
+
+        String sql="update t_article set title=?,article=?,tag=?,kind=?,classification=? where id=?;";
+        PreparedStatement pres=conn.prepareStatement(sql);
+        pres.setString(1,articleBean.getTitle());
+        pres.setString(2,articleBean.getArticle());
+        pres.setString(3,articleBean.getTag());
+        pres.setString(4,articleBean.getKind());
+        pres.setString(5,articleBean.getClassification());
+        pres.setInt(6,articleBean.getId());
+
+        pres.executeUpdate();
+        return true;
     }
 
     @Override

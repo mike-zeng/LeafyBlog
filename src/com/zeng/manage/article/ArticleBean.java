@@ -6,6 +6,7 @@ public class ArticleBean {
 
     String title,article,tag,kind,classification;
     boolean draft;
+    int id;
 
     public ArticleBean(String title, String article, String tag, String kind, String classification, boolean draft) {
         this.title = title;
@@ -65,6 +66,14 @@ public class ArticleBean {
 
     public boolean getDraft() {
         return draft;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
