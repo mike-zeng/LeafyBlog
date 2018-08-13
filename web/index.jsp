@@ -6,9 +6,9 @@
   <meta charset="utf-8">
   <title>zeng's Blog</title>
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="${pageContext.request.contextPath}/source/js/getCatalog.js"></script>
   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 
   <style>
     body{
@@ -33,15 +33,25 @@
       right: 40px;
       display: none;
     }
-    #classification{
-      /*display: none;*/
+    #classificationA{
+      display: none;
       width: 200px;
-      height: 350px;
+      height: 200px;
       background-color: white;
       position: fixed;
       top: 150px;
       text-align: center;
       padding: 15px 15px 15px 15px;
+    }
+    #classificationB{
+        display: none;
+        width: 200px;
+        height: 200px;
+        background-color: white;
+        position: fixed;
+        top: 400px;
+        text-align: center;
+        padding: 15px 15px 15px 15px;
     }
   </style>
 
@@ -52,21 +62,38 @@
       function func2(e) {
           e.style="margin-top: 5%";
       }
-      function searchShow() {
-          var e=document.getElementById("search");
+
+      function show(elem) {
+          var e=document.getElementById(elem);
           if(e.style.display=='none'){
               e.style.display="block";
           }else{
               e.style.display="none";
           }
       }
-      function listShow() {
-          var e=document.getElementById("list");
-          if(e.style.display=='none'){
-              e.style.display="block";
-          }else{
-              e.style.display="none";
+      document.onmousemove=function () {
+          var e = window.event;
+          console.log(e.clientX+'   '+e.clientY);
+          if(e.clientY>=120&&e.clientY<=370&&e.clientX>=0&&e.clientX<=50){
+              var node=document.getElementById("classificationA");
+              node.style.display="block";
+
           }
+
+          if(e.clientY<120||e.clientY>370||e.clientX>220){
+              var node=document.getElementById("classificationA");
+              node.style.display="none";
+          }
+          if(e.clientY>=380&&e.clientY<=620&&e.clientX==0&&e.clientX<=50){
+              var node=document.getElementById("classificationB");
+              node.style.display="block";
+          }
+
+          if(e.clientY<380||e.clientY>620||e.clientX>220){
+              var node=document.getElementById("classificationB");
+              node.style.display="none";
+          }
+
       }
 
   </script>
@@ -77,12 +104,12 @@
   <!--搜索和更多-->
   <div>
 
-    <a href="#" style="float: left;margin: 2% 2% 2% 2%;color: black" onclick="searchShow()">
+    <a href="#" style="float: left;margin: 2% 2% 2% 2%;color: black" onclick="show('search')">
       <span class="glyphicon glyphicon-search"></span>
     </a>
     <div>
 
-      <a href="#" style="float: right;margin: 2% 2% 2% 1%;color: black" onclick="listShow()">
+      <a href="#" style="float: right;margin: 2% 2% 2% 1%;color: black" onclick="show('list')">
         <span class="glyphicon glyphicon-list"></span>
       </a>
 
@@ -193,22 +220,49 @@
 
 <!--目录和分类-->
 <div>
-  <div id="classification">
+  <div id="classificationA">
     <div>
-      <span><a href="#"><strong>个人分类</strong></a></span>
-      <span><a href="#"><strong>时间分类</strong></a></span>
+      <span><a href="#" onclick="getCatalog('first','Classification')"><strong>个人分类</strong></a></span>
+      <%--<span><a href="#"><strong>时间分类</strong></a></span>--%>
     </div>
     <hr>
     <!--分类-->
-    <div>
+    <div id="PersonalClassification">
+        <script>
+            getCatalog('first','Classification');
+        </script>
 
     </div>
-    <div>
-      <span style="margin-right: 15px"><a href="#"><strong><<</strong></a></span>
-      <span style="margin-left: 15px"><a href="#"><strong>>></strong></a></span>
+      <br>
+    <div style="position: absolute;top: 180px;left: 65px">
+        <span style="margin-right: 15px" onclick="getCatalog('last','Classification')" class="glyphicon glyphicon-arrow-left"></span>
+        <span style="margin-left: 15px" onclick="getCatalog('next','Classification')" class="glyphicon glyphicon-arrow-right"></span>
+
     </div>
 
   </div>
+
+
+    <%--按照时间分类--%>
+    <div id="classificationB">
+        <div>
+            <span><a href="#" onclick="getCatalog('first','Time')"><strong>时间分类</strong></a></span>
+            <%--<span><a href="#"><strong>时间分类</strong></a></span>--%>
+        </div>
+        <hr>
+        <!--分类-->
+        <div id="TimeClassification">
+            <script>
+                getCatalog('first','Time');
+            </script>
+        </div>
+        <br>
+        <div style="position: absolute;top: 180px;left: 65px">
+            <span style="margin-right: 15px" onclick="getCatalog('last','Time')" class="glyphicon glyphicon-arrow-left"></span>
+            <span style="margin-left: 15px" onclick="getCatalog('next','Time')" class="glyphicon glyphicon-arrow-right"></span>
+        </div>
+
+    </div>
 
 </div>
 
