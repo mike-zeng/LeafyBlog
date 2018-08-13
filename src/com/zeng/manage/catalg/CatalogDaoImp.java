@@ -29,7 +29,7 @@ public class CatalogDaoImp implements CatalogDao {
     }
 
     @Override
-    public String queryCatalog() throws Exception {
+    public String queryCatalog(int page) throws Exception {
 
         Map<String,String> map=new HashMap<>();
         //连接数据库，获取所有的目录的id和名字,存放在一个map中
@@ -42,7 +42,20 @@ public class CatalogDaoImp implements CatalogDao {
             String sql="select id,name from t_catalog";
             state=conn.createStatement();
             resultSet=state.executeQuery(sql);
+            int count=1;
+            int start=(page-1)*5+1;
+            int end=start+4;
             while (resultSet.next()){
+                if(page!=-1){
+                    if(count<start){
+                        count++;
+                        continue;
+                    }
+                    if(count>end){
+                        break;
+                    }
+                }
+                count++;
                 map.put(resultSet.getString(1),resultSet.getString(2));
             }
         }catch (Exception e){

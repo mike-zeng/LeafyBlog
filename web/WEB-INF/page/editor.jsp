@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
     <script src="${pageContext.request.contextPath}/source/editor.md-master/editormd.min.js"></script>
     <script src="${pageContext.request.contextPath}/source/js/getLeaveMessage.js"></script>
+    <script src="${pageContext.request.contextPath}/source/js/getCatalog.js"></script>
     <script type="text/javascript">
         var testEditor;
         $(function() {
@@ -92,8 +93,20 @@
                 <div class="panel-heading">
                     个人分类
                 </div>
-                <div class="panel-body" id="PersonalClassification">
+                <div class="panel-body">
                     <%--<a onclick="myGetClassification()">查看个人分类</a>--%>
+                    <div id="PersonalClassification">
+                    </div>
+
+                        <br>
+                        <div>
+                            <script>
+                                getCatalog('first','Classification');
+                            </script>
+                            <span style="margin-right: 15px" onclick="getCatalog('last','Classification')" class="glyphicon glyphicon-arrow-left"></span>
+                            <span style="margin-left: 15px" onclick="getCatalog('next','Classification')" class="glyphicon glyphicon-arrow-right"></span>
+                        </div>
+
                 </div>
             </div>
 
@@ -101,7 +114,18 @@
                 <div class="panel-heading">
                     时间分类
                 </div>
-                <div class="panel-body" id="TimeClassification">
+                <div class="panel-body">
+                    <div id="TimeClassification">
+
+                    </div>
+                    <br>
+                    <div>
+                        <script>
+                            getCatalog('first','Time');
+                        </script>
+                        <span style="margin-right: 15px" onclick="getCatalog('last','Time')" class="glyphicon glyphicon-arrow-left"></span>
+                        <span style="margin-left: 15px" onclick="getCatalog('next','Time')" class="glyphicon glyphicon-arrow-right"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,7 +153,8 @@
 
 </body>
 
-<script src="${pageContext.request.contextPath}/source/js/getCatalog.js"></script>
+
+
 
 
 </html>

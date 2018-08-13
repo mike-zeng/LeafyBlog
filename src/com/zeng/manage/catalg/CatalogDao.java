@@ -8,7 +8,7 @@ public interface CatalogDao {
     public Boolean setCatalog(CatalogBean catalogBean) throws Exception;
 
     //查询
-    public String queryCatalog() throws Exception;
+    public String queryCatalog(int page) throws Exception;
 
     //修改
     public String alterCatalog(CatalogBean catalogBean) throws Exception;

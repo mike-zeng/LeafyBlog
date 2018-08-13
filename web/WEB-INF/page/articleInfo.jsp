@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zeng
-  Date: 18-6-29
-  Time: 下午5:33
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,7 +5,7 @@
         function getClassification() {
             document.getElementById("info").innerHTML=null;
             var req=new XMLHttpRequest();
-            req.open("GET","getClassification",true);
+            req.open("GET","getClassification?pageType=all",true);
             req.onreadystatechange=function () {
                 if (req.readyState==4 && req.status==200) {
                     var json=JSON.parse(req.responseText);
