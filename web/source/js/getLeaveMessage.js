@@ -9,18 +9,7 @@ function getLeaveMessage(flag) {
         }
     }
 
-    var more=document.getElementById("more");
-    if(more!=null){
-        root.removeChild(more);
-    }
-
-
-    more=document.createElement("button");
-    more.appendChild(document.createTextNode("查看更多"));
-    more.setAttribute("onclick","getLeaveMessage()");
-    more.setAttribute("id","more");
-
-    var myStyle="margin:2% 30% 2% 30%;padding:1% 2% 1% 2%;background-color: white;text-align: center;";
+    var root=document.getElementById("leaveMessageList");
 
     console.log("test------------")
     var req=new XMLHttpRequest();
@@ -28,31 +17,35 @@ function getLeaveMessage(flag) {
     req.onreadystatechange=function () {
         if (req.status==200&&req.readyState==4){
             var json=JSON.parse(req.responseText);
-            console.log(json);
-
+            if(json=='{}'){
+                return;
+            }
+            var text=root.innerHTML;
             for(var k in json){
                 var info=json[k];
-                //div
-                var e1=document.createElement("div");
-                e1.setAttribute("style",myStyle);
-                //h
-                var e2=document.createElement("h3");
-                e2.appendChild(document.createTextNode(info[0]));
+                var temp="<div id='lm"+k+"' style=\"margin-left:30%;margin-right:30%;margin-top: 5%;background-color: white;padding: 1% 1% 1% 1%;text-align: center\" onmouseover=\"show(this)\" onmouseout=\"show(this)\">\n" +
+                    "    <h4>"+info[0]+"</h4>\n" +
+                    "    <br>\n" +
+                    "    <p>"+info[1]+"</p>\n" +
+                    "    <br>\n" +
+                    "    <div>\n" +
+                    "        <span style=\"display: block\"><a>时间: "+info[2].substring(0,16)+"</a></span>\n" +
+                    "        <div style=\"display: none\">\n" +
+                    "            <span><a href=\"#\" style=\"color: red\" onclick='removeLeaveMessage("+k+")'>删除</a></span>\n" +
+                    "        </div>\n" +
+                    "    </div>\n" +
+                    "</div>";
 
-                e1.appendChild(e2);
+                if(text=='undefined'){
+                    text=temp;
+                }else{
+                    text+=temp;
+                }
 
-                var e3=document.createElement("p");
-                e3.appendChild(document.createTextNode(info[1]));
-
-                e1.appendChild(e3);
-
-                var e4=document.createElement("p");
-                e4.appendChild(document.createTextNode(info[2]));
-                e1.appendChild(e4);
-                root.appendChild(e1);
             }
+            root.innerHTML=text;
         }
-        root.appendChild(more);
+
     }
 
     req.send();
@@ -69,4 +62,22 @@ function setCookie(c_name,value,expiredays)
     exdate.setDate(exdate.getDate()+expiredays)
     document.cookie=c_name+ "=" +escape(value)+
         ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
+
+function removeLeaveMessage(id) {
+    var req=new XMLHttpRequest();
+    var url="delLeaveMessage?del_id="+id;
+    req.open("GET",url,true);
+    req.send();
+    var target="lm"+id;
+    var root=document.getElementById("leaveMessageList");
+    var childs=root.childNodes;
+    for(var i=childs.length-1;i>=0;i--){
+        if(childs[i].id==target){
+            root.removeChild(childs[i]);
+            console.log("del lm--------");
+        }
+
+    }
+
 }

@@ -69,7 +69,7 @@
     <!--文章管理-->
     <link>
     <div class="tab-pane fade" id="article">
-        <div style="width: 65%;float: left;margin-right: 5%">
+        <div style="width: 60%;float: left;margin-right: 5%;margin-left: 5%">
             <div id="articleList" ></div>
 
             <div id="paging" style="margin-top: 2%;margin-bottom: 2%">
@@ -145,9 +145,12 @@
     </div>
 
     <div class="tab-pane fade" id="leaveMessage">
-        <div id="leaveMessageList">
-            <button id="more"></button>
+        <div id="leaveMessageList"></div>
+        <br>
+        <div>
+            <button id="more" onclick="getLeaveMessage()">加载更多</button>
         </div>
+        <br>
     </div>
 </div>
 

@@ -2,6 +2,8 @@ package com.zeng.manage.leaveMessage;
 
 import com.zeng.database.DataBaseManage;
 
+import javax.naming.ldap.PagedResultsControl;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -20,6 +22,9 @@ public class LeaveMessageDaoIml implements LeaveMessageDao{
                 flag++;
                 continue;
             }
+            if(flag!=num){
+                json+=",";
+            }
             id=resultSet.getString("id");
             user=resultSet.getString("user");
             content=resultSet.getString("content");
@@ -28,7 +33,6 @@ public class LeaveMessageDaoIml implements LeaveMessageDao{
             if(flag==num+4){
                 break;
             }
-            json+=",";
             flag++;
         }
         json+="}";
@@ -42,7 +46,13 @@ public class LeaveMessageDaoIml implements LeaveMessageDao{
     }
 
     @Override
-    public boolean delLeaveMessage() throws Exception {
-        return false;
+    public boolean delLeaveMessage(String id) throws Exception {
+        DataBaseManage dbm=new DataBaseManage();
+        Connection conn=dbm.getConnection();
+        String sql="delete from t_leaveMessage where id=?;";
+        PreparedStatement pres=conn.prepareStatement(sql);
+        pres.setString(1,id);
+        pres.executeUpdate();//执行
+        return true;
     }
 }

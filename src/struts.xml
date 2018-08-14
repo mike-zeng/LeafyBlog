@@ -35,6 +35,7 @@
         <!--获取留言-->
         <action name="getLeaveMessage" class="com.zeng.manage.leaveMessage.getLeaveMessage"></action>
         <action name="delArticle" class="com.zeng.manage.article.DelArticleAction"></action>
+        <action name="delLeaveMessage" class="com.zeng.manage.leaveMessage.DelLeaveMessage"></action>
 
         <!--修改文章-->
         <action name="alterArticle" class="com.zeng.manage.article.AlterArticleAction">

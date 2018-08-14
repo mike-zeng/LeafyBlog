@@ -76,7 +76,7 @@
       }
       document.onmousemove=function () {
           var e = window.event;
-          console.log(e.clientX+'   '+e.clientY);
+          // console.log(e.clientX+'   '+e.clientY);
           if(e.clientY>=120&&e.clientY<=370&&e.clientX>=0&&e.clientX<=50){
               var node=document.getElementById("classificationA");
               node.style.display="block";
@@ -166,7 +166,7 @@
 <div>
   <div id="classificationA">
     <div>
-      <span><a href="#" onclick="getCatalog('first','Classification')"><strong>个人分类</strong></a></span>
+      <span><a href="#" onclick="getCatalog('first','Classification');getArticleList('ALL','','1')"><strong>个人分类</strong></a></span>
       <%--<span><a href="#"><strong>时间分类</strong></a></span>--%>
     </div>
     <hr>
@@ -190,7 +190,7 @@
     <%--按照时间分类--%>
     <div id="classificationB">
         <div>
-            <span><a href="#" onclick="getCatalog('first','Time')"><strong>时间分类</strong></a></span>
+            <span><a href="#" onclick="getCatalog('first','Time');getArticleList('ALL','','1')"><strong>时间分类</strong></a></span>
             <%--<span><a href="#"><strong>时间分类</strong></a></span>--%>
         </div>
         <hr>
