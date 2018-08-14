@@ -6,7 +6,10 @@
   <meta charset="utf-8">
   <title>zeng's Blog</title>
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="${pageContext.request.contextPath}/source/js/getCatalog.js"></script>
+
+  <script src="${pageContext.request.contextPath}/source/js/getCatalog.js"></script>
+  <script src="${pageContext.request.contextPath}/source/js/getArticleForClient.js"></script>
+
   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -135,7 +138,7 @@
 </div>
 <div>
 
-  <div id="article-list" style="margin-right: 20%;margin-left: 20%;">
+  <div  style="margin-right: 20%;margin-left: 20%;">
 
     <div id="search" class="input-group col-md-3" style="width:30%;margin:2% 35% 0% 35%;display: none">
 
@@ -144,75 +147,16 @@
                <button class="btn btn-info btn-search">查找</button>
             </span>
     </div>
-
-    <div class="article" style="margin-top: 5%" onmouseover="func1(this)" onmouseout="func2(this)">
-      <div style="height: 160px;background-color: white;text-align: center;padding: 1% 1% 1% 1%">
-        <a href="http://www.baidu.com"><h3>我的标题</h3></a>
-        <p>这个简写属性设置元素所有内边距的宽度，或者设置各边上内边距的宽度。行内非替换元素上设置的内边距不会影响行高计算；因此，如果一个元素既有内边距又有背景，从视觉上看可能会延伸到其他行，有可能还会与其他内容重叠。元素的背景会延伸穿过内边距。不允许指定负边距值。
-        </p>
-
-        <div style="margin-bottom: 1%;color: cornflowerblue">
-          <span>阅读: </span>1280&nbsp;
-          <span>评论: </span>12&nbsp;
-          <span>点赞: </span>48&nbsp;
-        </div>
-      </div>
+    <div id="articleList">
+      <script>
+          getArticleList('ALL','','1');
+      </script>
     </div>
 
-    <div class="article" style="margin-top: 5%" onmouseover="func1(this)" onmouseout="func2(this)">
-      <div style="height: 160px;background-color: white;text-align: center;padding: 1% 1% 1% 1%">
-        <h3>我的标题</h3>
-        <p>这个简写属性设置元素所有内边距的宽度，或者设置各边上内边距的宽度。行内非替换元素上设置的内边距不会影响行高计算；因此，如果一个元素既有内边距又有背景，从视觉上看可能会延伸到其他行，有可能还会与其他内容重叠。元素的背景会延伸穿过内边距。不允许指定负边距值。
-        </p>
-
-        <div style="margin-bottom: 1%;color: cornflowerblue">
-          <span>阅读: </span>1280&nbsp;
-          <span>评论: </span>12&nbsp;
-          <span>点赞: </span>48&nbsp;
-        </div>
-      </div>
-    </div>
-
-    <div class="article" style="margin-top: 5%" onmouseover="func1(this)" onmouseout="func2(this)">
-      <div style="height: 160px;background-color: white;text-align: center;padding: 1% 1% 1% 1%">
-        <h3>我的标题</h3>
-        <p>这个简写属性设置元素所有内边距的宽度，或者设置各边上内边距的宽度。行内非替换元素上设置的内边距不会影响行高计算；因此，如果一个元素既有内边距又有背景，从视觉上看可能会延伸到其他行，有可能还会与其他内容重叠。元素的背景会延伸穿过内边距。不允许指定负边距值。
-        </p>
-
-        <div style="margin-bottom: 1%;color: cornflowerblue">
-          <span>阅读: </span>1280&nbsp;
-          <span>评论: </span>12&nbsp;
-          <span>点赞: </span>48&nbsp;
-        </div>
-      </div>
-    </div>
-
-    <div class="article" style="margin-top: 5%" onmouseover="func1(this)" onmouseout="func2(this)">
-      <div style="height: 160px;background-color: white;text-align: center;padding: 1% 1% 1% 1%">
-        <h3>我的标题</h3>
-        <p>这个简写属性设置元素所有内边距的宽度，或者设置各边上内边距的宽度。行内非替换元素上设置的内边距不会影响行高计算；因此，如果一个元素既有内边距又有背景，从视觉上看可能会延伸到其他行，有可能还会与其他内容重叠。元素的背景会延伸穿过内边距。不允许指定负边距值。
-        </p>
-
-        <div style="margin-bottom: 1%;color: cornflowerblue">
-          <span>阅读: </span>1280&nbsp;
-          <span>评论: </span>12&nbsp;
-          <span>点赞: </span>48&nbsp;
-        </div>
-      </div>
-    </div>
-
-    <div class="article" style="margin-top: 5%" onmouseover="func1(this)" onmouseout="func2(this)">
-      <div style="height: 160px;background-color: white;text-align: center;padding: 1% 1% 1% 1%">
-        <h3>我的标题</h3>
-        <p>这个简写属性设置元素所有内边距的宽度，或者设置各边上内边距的宽度。行内非替换元素上设置的内边距不会影响行高计算；因此，如果一个元素既有内边距又有背景，从视觉上看可能会延伸到其他行，有可能还会与其他内容重叠。元素的背景会延伸穿过内边距。不允许指定负边距值。
-        </p>
-
-        <div style="margin-bottom: 1%;color: cornflowerblue">
-          <span>阅读: </span>1280&nbsp;
-          <span>评论: </span>12&nbsp;
-          <span>点赞: </span>48&nbsp;
-        </div>
-      </div>
+    <div style="text-align: center">
+      <br>
+      <span class="glyphicon glyphicon-refresh" onclick="getArticleList(null,null,'N')"></span>
+      <br>
     </div>
 
   </div>

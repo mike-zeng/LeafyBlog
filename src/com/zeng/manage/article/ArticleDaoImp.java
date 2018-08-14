@@ -162,6 +162,7 @@ public class ArticleDaoImp implements ArticleDao{
             resultSet=pres.executeQuery();//执行代码,拿到数据
 
             String title,article,time,id;
+            int like=0,comments=0,reading=0;
             res="{";
             boolean flag=false;
             int count=1;
@@ -184,7 +185,11 @@ public class ArticleDaoImp implements ArticleDao{
                 title=resultSet.getString("title");//获取标题
                 article=resultSet.getString("article");//获取文章概要
                 time=resultSet.getString("time");//获取文章时间
-                res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+"]");
+                comments=resultSet.getInt("comments");
+                reading=resultSet.getInt("reading");
+                like=resultSet.getInt("reading");
+//                res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+"]");
+                res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+ "," +"\""+reading+"\""+ "," +"\""+comments+"\""+ "," +"\""+like+"\""+"]");
                 count++;
             }
             if(flag){

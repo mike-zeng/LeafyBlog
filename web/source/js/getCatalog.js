@@ -1,4 +1,7 @@
-function getCatalog(pageType,type) {
+function getCatalog(pageType,type,isClient) {
+    if(isClient){
+
+    }
     var node,url;
     if(type=='Classification'){
         node=document.getElementById("PersonalClassification");
@@ -36,14 +39,15 @@ function getCatalog(pageType,type) {
                 }else{
                     func="getArticleList('TIME'"+",'"+k+"',"+"'1')";
                 }
+                temp.href="#";
                 temp.setAttribute("onclick",func);
+
                 var temp2=document.createElement("br");
                 var text=document.createTextNode(v);
                 temp.appendChild(text);
                 node.appendChild(temp);
                 node.appendChild(temp2);
             }
-
         }
     }
     req.send();

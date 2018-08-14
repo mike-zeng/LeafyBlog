@@ -8,6 +8,7 @@ public class ArticleBean {
     boolean draft;
     int id;
 
+    int reading,comments,like;
     public ArticleBean(String title, String article, String tag, String kind, String classification, boolean draft) {
         this.title = title;
         this.article = article;
@@ -76,6 +77,35 @@ public class ArticleBean {
         this.id = id;
     }
 
+
+    public boolean isDraft() {
+        return draft;
+    }
+
+    public int getReading() {
+        return reading;
+    }
+
+    public void setReading(int reading) {
+        this.reading = reading;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
     @Override
     public String toString() {
         return "["+title+","+article+","+tag+","+kind+","+classification+"]";
@@ -86,4 +116,5 @@ public class ArticleBean {
                 &&(tag!=null&&tag.length()!=0)&&(kind!=null&& kind.length()!=0)
                 &&(classification!=null&&classification.length()!=0);
     }
+
 }
