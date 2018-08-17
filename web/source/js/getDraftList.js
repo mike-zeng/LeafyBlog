@@ -9,7 +9,7 @@ function getDraftList(flag) {
         }
         console.log("clear--------")
     }
-    
+
 
     console.log("test------------")
     var req=new XMLHttpRequest();
@@ -37,7 +37,7 @@ function getDraftList(flag) {
                     "        <div style=\"display: none\">\n" +
                     "            <span><a href=\"#\" onclick='removeDraft("+id+")' style=\"color: red\">删除</a></span>\n" +
                     "            <span><a href=\"#\" style=\"color: red\">编辑</a></span>\n" +
-                    "            <span><a href=\"#\" style=\"color: red\">发布</a></span>\n" +
+                    "            <span><a href=\"#\" onclick='draftToArticle("+id+")' style=\"color: red\">发布</a></span>\n" +
                     "        </div>\n" +
                     "    </div>\n" +
                     "</div>\n";
@@ -84,5 +84,20 @@ function removeDraft(id) {
             console.log("del draft--------");
         }
     }
+}
 
+function draftToArticle(id) {
+    var req=new XMLHttpRequest();
+    var url="draftToArticle?id="+id;
+    req.open("GET",url,true);
+    req.send();
+    var target="draft"+id;
+    var root=document.getElementById("draftList");
+    var childs=root.childNodes;
+    for(var i=childs.length-1;i>=0;i--){
+        if(childs[i].id==target){
+            root.removeChild(childs[i]);
+            console.log("del draft--------");
+        }
+    }
 }

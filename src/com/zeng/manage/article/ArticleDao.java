@@ -12,7 +12,7 @@ public interface ArticleDao{
 
     public String getArticleCount()throws Exception;
 
-    public ArticleBean getArticleById(int id,String table)throws Exception;
+    public ArticleBean getArticleById(String id,String table)throws Exception;
 
     public String queryDraft(int start)throws Exception;
 }

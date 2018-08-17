@@ -49,13 +49,20 @@ public class ArticleDaoImp implements ArticleDao{
 
     @Override
     public boolean delArticle(String id,String table) throws Exception {
-        String sql="delete from ? where id=?;";
+        String sql=null;
+        if (table.equals("t_article")){
+            sql="delete from t_article where id=?;";
+        }else if (table.equals("t_draft")){
+            sql="delete from t_draft where id=?;";
+        }else{
+            return false;
+        }
+
         DataBaseManage dbm=new DataBaseManage();
         Connection conn=dbm.getConnection();
         PreparedStatement pres=conn.prepareStatement(sql);
-
-        pres.setString(1,table);
-        pres.setString(2,id);
+        
+        pres.setString(1,id);
         int ret=pres.executeUpdate();
 
         pres.close();
@@ -129,18 +136,20 @@ public class ArticleDaoImp implements ArticleDao{
     }
 
     @Override
-    public ArticleBean getArticleById(int id,String table)throws Exception {
+    public ArticleBean getArticleById(String id,String table)throws Exception {
         //查询byid
         DataBaseManage dbm=new DataBaseManage();
         Connection conn=dbm.getConnection();
         String sql=null;
-
-        if(table.equals("article")){
+        //出现未知bug-------
+        if(table.equals("t_article")){
             sql="select * from t_article where id=?";
+        }else if (table.equals("t_draft")){
+            sql="select * from t_draft where id=?";
         }
-
         PreparedStatement pres=pres=conn.prepareStatement(sql);
-        pres.setInt(1,id);
+//        pres.setString(1,table);
+        pres.setString(1,id);
 
         ResultSet resultSet=pres.executeQuery();
         ArticleBean articleBean=null;

@@ -44,5 +44,6 @@
 
         <action name="getDraftList" class="com.zeng.manage.article.GetDraftListAction"></action>
         <action name="delDraft" class="com.zeng.manage.article.DelDraftAction"></action>
+        <action name="draftToArticle" class="com.zeng.manage.article.DraftToArticleAction"></action>
     </package>
 </struts>

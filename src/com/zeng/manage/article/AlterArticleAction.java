@@ -21,7 +21,7 @@ public class AlterArticleAction extends ActionSupport {
         response.setCharacterEncoding("utf-8");
 
         if(request.getMethod().equals("GET")){
-            int id=Integer.parseInt(request.getParameter("articleId"));
+            String id=request.getParameter("articleId");
             ArticleBean articleBean=articleDao.getArticleById(id,"article");
             System.out.println(articleBean);
             request.setAttribute("articleId",id);
