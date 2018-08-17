@@ -61,7 +61,7 @@ public class ArticleDaoImp implements ArticleDao{
         DataBaseManage dbm=new DataBaseManage();
         Connection conn=dbm.getConnection();
         PreparedStatement pres=conn.prepareStatement(sql);
-        
+
         pres.setString(1,id);
         int ret=pres.executeUpdate();
 
@@ -105,12 +105,17 @@ public class ArticleDaoImp implements ArticleDao{
     }
 
     @Override
-    public boolean alterArticle(ArticleBean articleBean) throws Exception {
+    public boolean alterArticle(ArticleBean articleBean,boolean isDraft) throws Exception {
         //articleBean表示修改过后的文章
         DataBaseManage dataBaseManage=new DataBaseManage();
         Connection conn=dataBaseManage.getConnection();
 
-        String sql="update t_article set title=?,article=?,tag=?,kind=?,classification=? where id=?;";
+        String sql=null;
+        if(isDraft){
+            sql="update t_draft set title=?,article=?,tag=?,kind=?,classification=? where id=?;";
+        }else {
+            sql="update t_article set title=?,article=?,tag=?,kind=?,classification=? where id=?;";
+        }
         PreparedStatement pres=conn.prepareStatement(sql);
         pres.setString(1,articleBean.getTitle());
         pres.setString(2,articleBean.getArticle());
@@ -142,9 +147,9 @@ public class ArticleDaoImp implements ArticleDao{
         Connection conn=dbm.getConnection();
         String sql=null;
         //出现未知bug-------
-        if(table.equals("t_article")){
+        if(table.equals("article")){
             sql="select * from t_article where id=?";
-        }else if (table.equals("t_draft")){
+        }else if (table.equals("draft")){
             sql="select * from t_draft where id=?";
         }
         PreparedStatement pres=pres=conn.prepareStatement(sql);

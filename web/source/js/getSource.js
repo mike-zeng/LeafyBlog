@@ -61,7 +61,7 @@ function getArticleList(type,arg,page) {
                     "        <span style=\"display: block\"><a>时间: "+time.substring(0,10)+"</a></span>\n" +
                     "        <div style=\"display: none\">\n" +
                     "            <span><a onclick='remove("+id+")' href=\"#\" style=\"color: red\">删除</a></span>\n" +
-                    "            <span><a href=\"alterArticle?articleId="+id+"\" style=\"color: red\" target='_blank'>编辑</a></span>\n" +
+                    "            <span><a href=\"alterArticle?type=article&&id="+id+"\" style=\"color: red\" target='_blank'>编辑</a></span>\n" +
                     "        </div>\n" +
                     "    </div>\n" +
                     "</div>";

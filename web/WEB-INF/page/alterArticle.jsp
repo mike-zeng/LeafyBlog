@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/source/editor.md-master/css/editormd.css" />
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
     <script>
-        function alter(id,isDraft) {
+        function alter(id,isDraft,old) {
 
             function artObj(title,article,tag,kind,classification,isDraft) {
                 this.title=title;
@@ -35,7 +35,7 @@
             var objJson=JSON.stringify(obj);
 
             var req=new XMLHttpRequest();
-            var url="alterArticle?articleId="+id;
+            var url="alterArticle?oldType="+old+"&&id="+id;
             req.open("POST",url,true);
             req.setRequestHeader("Content-type","application/json");
             req.send(objJson);//发送json给服务器；
@@ -83,8 +83,11 @@
 
     var put_article=document.getElementById("putArticle");
     put_article.removeAttribute("onclick");
-    put_article.setAttribute("onclick","alter(${requestScope.articleId},false)");
-    console.log(put_article);
+    put_article.setAttribute("onclick","alter(${requestScope.id},false,\"${requestScope.oldType}\")" );
+
+    var save_draft=document.getElementById("saveDraft");
+    save_draft.removeAttribute("onclick");
+    save_draft.setAttribute("onclick","alter(${requestScope.id},true,\"${requestScope.oldType}\")")
 </script>
 
 <%--为保存信息赋予初始值--%>

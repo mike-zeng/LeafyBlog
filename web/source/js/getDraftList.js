@@ -36,7 +36,7 @@ function getDraftList(flag) {
                     "        <span style=\"display: block\"><a>时间: "+time+"</a></span>\n" +
                     "        <div style=\"display: none\">\n" +
                     "            <span><a href=\"#\" onclick='removeDraft("+id+")' style=\"color: red\">删除</a></span>\n" +
-                    "            <span><a href=\"#\" style=\"color: red\">编辑</a></span>\n" +
+                    "            <span><a target='_blank' href=\"alterArticle?type=draft&&id="+id+"\" style=\"color: red\">编辑</a></span>\n" +
                     "            <span><a href=\"#\" onclick='draftToArticle("+id+")' style=\"color: red\">发布</a></span>\n" +
                     "        </div>\n" +
                     "    </div>\n" +
