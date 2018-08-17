@@ -48,13 +48,14 @@ public class ArticleDaoImp implements ArticleDao{
     }
 
     @Override
-    public boolean delArticle(String id) throws Exception {
-        String sql="delete from t_article where id=?;";
+    public boolean delArticle(String id,String table) throws Exception {
+        String sql="delete from ? where id=?;";
         DataBaseManage dbm=new DataBaseManage();
         Connection conn=dbm.getConnection();
         PreparedStatement pres=conn.prepareStatement(sql);
 
-        pres.setString(1,id);
+        pres.setString(1,table);
+        pres.setString(2,id);
         int ret=pres.executeUpdate();
 
         pres.close();
@@ -152,6 +153,44 @@ public class ArticleDaoImp implements ArticleDao{
 
         DataBaseManage.returnConnection(conn);
         return articleBean;
+    }
+
+    @Override
+    public String queryDraft(int start) throws Exception {
+        DataBaseManage dataBaseManage=new DataBaseManage();
+        Connection conn=dataBaseManage.getConnection();
+
+        String sql="select * from t_draft";
+        PreparedStatement pres=conn.prepareStatement(sql);
+        ResultSet resultSet=pres.executeQuery();
+        int count=1,end=start+4;
+        boolean flag=false;
+        String res="{",id,title,time,article;
+
+        while (resultSet.next()){
+
+            if(count<start){
+                count++;continue;
+            }
+
+            if(count>end){
+                break;
+            }
+
+            if(flag){
+                res+=',';
+            }
+            flag=true;
+            id=resultSet.getString("id");
+            title=resultSet.getString("title");//获取标题
+            article=resultSet.getString("article");//获取文章概要
+            time=resultSet.getString("time");//获取文章时间
+            res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+"]");
+            count++;
+        }
+        DataBaseManage.returnConnection(conn);
+        res+="}";
+        return res;
     }
 
     private String returnList(PreparedStatement pres, int page) throws Exception{

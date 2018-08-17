@@ -11,6 +11,7 @@
     <script src="${pageContext.request.contextPath}/source/editor.md-master/editormd.min.js"></script>
     <script src="${pageContext.request.contextPath}/source/js/getLeaveMessage.js"></script>
     <script src="${pageContext.request.contextPath}/source/js/getCatalog.js"></script>
+    <script src="${pageContext.request.contextPath}/source/js/getDraftList.js"></script>
     <script type="text/javascript">
         var testEditor;
         $(function() {
@@ -34,7 +35,7 @@
         <a href="#write" data-toggle="tab">新的文章</a>
     </li>
     <li><a href="#article" data-toggle="tab" onclick="getArticleList('ALL','','1')" >文章管理</a></li>
-    <li><a href="#draft" data-toggle="tab">草稿管理</a></li>
+    <li><a href="#draft" data-toggle="tab" onclick="getDraftList('true')">草稿管理</a></li>
     <li><a href="#statistics" data-toggle="tab">统计分析</a></li>
     <li><a href="#comment" data-toggle="tab">评论管理</a></li>
     <li><a href="#leaveMessage" data-toggle="tab"  onclick="getLeaveMessage('true')">留言管理</a></li>
@@ -133,7 +134,12 @@
 
     <!---->
     <div class="tab-pane fade" id="draft">
-        <h2>待开发draft</h2>
+        <div id="draftList" style="margin-left: 20%;margin-right: 20%"></div>
+        <br>
+        <div>
+            <button id="more_draft" onclick="getDraftList()">加载更多</button>
+        </div>
+        <br>
     </div>
 
     <div class="tab-pane fade" id="statistics">

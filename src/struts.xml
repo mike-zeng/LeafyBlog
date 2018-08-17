@@ -41,5 +41,8 @@
         <action name="alterArticle" class="com.zeng.manage.article.AlterArticleAction">
             <result name="success">/WEB-INF/page/alterArticle.jsp</result>
         </action>
+
+        <action name="getDraftList" class="com.zeng.manage.article.GetDraftListAction"></action>
+        <action name="delDraft" class="com.zeng.manage.article.DelDraftAction"></action>
     </package>
 </struts>
