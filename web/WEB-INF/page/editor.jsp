@@ -143,7 +143,28 @@
     </div>
 
     <div class="tab-pane fade" id="statistics">
-        <h2>待开发statistics</h2>
+
+
+        <div style="margin-top: 5%;display: block;margin-left: 20%;margin-right: 20%;">
+            <div style="margin-bottom: 5%">
+                <%--访问总量--%>
+                <div style="float: left;margin-right: 5%;width: 200px;height: 200px;background-color: white">
+                    <h2 style="margin-top: 3%">总访问量</h2>
+                    <p style="margin-top:20%;font-size: 40px">1000</p>
+                </div>
+                <%--今日访问量--%>
+                <div style="float: left;margin-left: 5%;margin-right: 5%;width: 200px;height: 200px;background-color: white">
+                    <h2 style="margin-top: 3%">昨日访问</h2>
+                    <p style="margin-top:20%;font-size: 40px">70</p>
+                </div>
+                <%--收获的赞--%>
+                <div style="float: left;margin-left: 5%;width: 200px;height: 200px;background-color: white">
+                    <h2 style="margin-top: 3%">阅读数</h2>
+                    <p style="margin-top:20%;font-size: 40px">6000</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="tab-pane fade" id="comment">
