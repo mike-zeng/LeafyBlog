@@ -74,7 +74,7 @@ function getArticleList(type,arg,page) {
 
                 //文章标题
                 var e3=document.createElement("a");
-                e3.href="#";//文章链接
+                e3.href="showArticle?id="+id;//文章链接
                 var e4=document.createElement("h3");
                 e4.appendChild(document.createTextNode(title));
                 e3.appendChild(e4);

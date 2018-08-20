@@ -19,7 +19,10 @@ function saveArticle(isDraft) {
     var req=new XMLHttpRequest();
     req.open("POST","saveArticle",true);
     req.setRequestHeader("Content-type","application/json");
+
+    console.log(objJson);
     req.send(objJson);//发送json给服务器；
+
 
     req.onreadystatechange=function () {
         if (req.readyState==4 && req.status==200) {

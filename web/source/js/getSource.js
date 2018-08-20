@@ -12,20 +12,21 @@ function getArticleList(type,arg,page) {
         page= Number(getCookie("last_page"))+1;
     }
 
-    console.log(page);
-
-    // getClassification();
-    var obj={
-        "type":type,
-        "arg":arg,
-        "page":page
+    function f(type,arg,page) {
+        this.type=type;
+        this.arg=arg;
+        this.page=page;
     }
+    var obj=new f(type,arg,page);
+    console.log(obj);
     var objJson=JSON.stringify(obj);
+    console.log(objJson);
 
     var req=new XMLHttpRequest();
     req.open("POST","getArticleList",true);
     req.setRequestHeader("Content-type","application/json");
-    req.send(objJson);//发送json给服务器；
+
+    req.send("======"+objJson);//发送json给服务器；
 
     req.onreadystatechange=function () {
         if (req.readyState == 4 && req.status == 200) {
