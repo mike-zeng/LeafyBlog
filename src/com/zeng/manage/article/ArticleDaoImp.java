@@ -25,8 +25,9 @@ public class ArticleDaoImp implements ArticleDao{
             }else{
                 sql="insert into t_article(title,article,tag,kind,classification) values(?,?,?,?,?)";
             }
-            DataBaseManage dbm=new DataBaseManage();
-            Connection conn= dbm.getConnection();
+
+
+            Connection conn= DataBaseManage.getConnection();
             PreparedStatement prep=conn.prepareStatement(sql);
             prep.setString(1,articleBean.getTitle());
             prep.setString(2,articleBean.getArticle());
@@ -38,9 +39,8 @@ public class ArticleDaoImp implements ArticleDao{
             if(ret==0){
                 return false;
             }
-//
-            DataBaseManage.returnConnection(conn);
             prep.close();
+            conn.close();
         }else{
             return false;
         }
@@ -58,15 +58,13 @@ public class ArticleDaoImp implements ArticleDao{
             return false;
         }
 
-        DataBaseManage dbm=new DataBaseManage();
-        Connection conn=dbm.getConnection();
+        Connection conn=DataBaseManage.getConnection();
         PreparedStatement pres=conn.prepareStatement(sql);
 
         pres.setString(1,id);
         int ret=pres.executeUpdate();
-
         pres.close();
-        DataBaseManage.returnConnection(conn);
+
         if(ret==0){
             return false;
         }
@@ -77,8 +75,8 @@ public class ArticleDaoImp implements ArticleDao{
     public String queryArticle(String type,String arg,int page) throws Exception {
 
         String res=null,sql=null;
-        DataBaseManage dbm=new DataBaseManage();
-        Connection conn=dbm.getConnection();
+
+        Connection conn=DataBaseManage.getConnection();
         PreparedStatement pres=null;
         try {
 
@@ -98,9 +96,9 @@ public class ArticleDaoImp implements ArticleDao{
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            DataBaseManage.returnConnection(conn);
+            conn.close();
+            pres.close();
         }
-        System.out.println(res);
         return res;
     }
 
@@ -123,37 +121,44 @@ public class ArticleDaoImp implements ArticleDao{
         pres.setString(4,articleBean.getKind());
         pres.setString(5,articleBean.getClassification());
         pres.setInt(6,articleBean.getId());
-
-        pres.executeUpdate();
+        int ret=pres.executeUpdate();
+        if(ret==0){
+            return false;
+        }
         return true;
     }
 
     @Override
-    public String getArticleCount(){
+    public int getArticleCount() throws Exception{
         String res=null;
         DataBaseManage dbm=new DataBaseManage();
         Connection conn=dbm.getConnection();
         PreparedStatement pres=null;
 
-        String sql="";
-        String ret=null;
+        String sql="select count(*) from t_article";
+        pres=conn.prepareStatement(sql);
+        ResultSet resultSet=pres.executeQuery();
+        int ret=0;
+        if (resultSet.next()){
+            ret=resultSet.getInt(0);
+        }
         return ret;
     }
 
     @Override
     public ArticleBean getArticleById(String id,String table)throws Exception {
         //查询byid
-        DataBaseManage dbm=new DataBaseManage();
-        Connection conn=dbm.getConnection();
+        Connection conn=DataBaseManage.getConnection();
         String sql=null;
         //出现未知bug-------
         if(table.equals("article")){
             sql="select * from t_article where id=?";
         }else if (table.equals("draft")){
             sql="select * from t_draft where id=?";
+        }else{
+            return null;
         }
-        PreparedStatement pres=pres=conn.prepareStatement(sql);
-//        pres.setString(1,table);
+        PreparedStatement pres=conn.prepareStatement(sql);
         pres.setString(1,id);
 
         ResultSet resultSet=pres.executeQuery();
@@ -163,16 +168,19 @@ public class ArticleDaoImp implements ArticleDao{
                     resultSet.getString("tag"),resultSet.getString("kind"),resultSet.getString("classification"),
                     false
             );
+        }else{
+            return null;
         }
-
-        DataBaseManage.returnConnection(conn);
+        resultSet.close();
+        pres.close();
+        conn.close();
         return articleBean;
     }
 
     @Override
     public String queryDraft(int start) throws Exception {
-        DataBaseManage dataBaseManage=new DataBaseManage();
-        Connection conn=dataBaseManage.getConnection();
+
+        Connection conn=DataBaseManage.getConnection();
 
         String sql="select * from t_draft";
         PreparedStatement pres=conn.prepareStatement(sql);
@@ -182,15 +190,12 @@ public class ArticleDaoImp implements ArticleDao{
         String res="{",id,title,time,article;
 
         while (resultSet.next()){
-
             if(count<start){
                 count++;continue;
             }
-
             if(count>end){
                 break;
             }
-
             if(flag){
                 res+=',';
             }
@@ -202,7 +207,9 @@ public class ArticleDaoImp implements ArticleDao{
             res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+"]");
             count++;
         }
-        DataBaseManage.returnConnection(conn);
+        resultSet.close();
+        pres.close();
+        conn.close();
         res+="}";
         return res;
     }
@@ -241,7 +248,6 @@ public class ArticleDaoImp implements ArticleDao{
                 comments=resultSet.getInt("comments");
                 reading=resultSet.getInt("reading");
                 like=resultSet.getInt("reading");
-//                res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+"]");
                 res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+ "," +"\""+reading+"\""+ "," +"\""+comments+"\""+ "," +"\""+like+"\""+"]");
                 count++;
             }
@@ -265,6 +271,5 @@ public class ArticleDaoImp implements ArticleDao{
         }
         return res;
     }
-
 
 }

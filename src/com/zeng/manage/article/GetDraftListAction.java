@@ -39,7 +39,6 @@ public class GetDraftListAction extends ActionSupport {
             response.addCookie(cookie);
         }
         //设置当前读取到的最后一条
-
         System.out.println(res);
         writer.write(res);
         writer.close();

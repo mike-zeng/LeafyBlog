@@ -1,6 +1,10 @@
 package com.zeng.database;
 
+import org.apache.commons.dbcp2.BasicDataSourceFactory;
+
+import javax.sql.DataSource;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.Properties;
@@ -8,59 +12,32 @@ import java.util.Properties;
 //用来管理数据库的连接
 //实现目标，可以记录获取数据库连接的请求，并据此分析web应用的访问情况，动态改变list中的连接数量
 public class DataBaseManage {
-    private static LinkedList<Connection> connectionsList=new LinkedList<>();
-    volatile private static int size=0;//
-    private static FileInputStream fin=null;
-    private static String url,username,password,drive;
-
+    private static Properties properties=new Properties();
+    private static DataSource dataSource;
     static {
-        int initSize=0;
-
-        try{//加载驱动
-            fin=new FileInputStream("/home/zeng/IdeaProjects/Blog/src/com/zeng/database/DBM.properties");
-            Properties prop=new Properties();
-            prop.load(fin);
-            url=prop.getProperty("url");
-            username=prop.getProperty("username");
-            password=prop.getProperty("password");
-            drive=prop.getProperty("driver");
-            initSize=Integer.parseInt(prop.getProperty("initSize"));
-            Class.forName(drive);
+        try {
+            FileInputStream is=new FileInputStream("/home/zeng/IdeaProjects/Blog/src/com/zeng/database/dbcp.properties");
+            properties.load(is);
+            System.out.println(properties);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        try {
+            dataSource= BasicDataSourceFactory.createDataSource(properties);
+            System.out.println(dataSource);
         }catch (Exception e){
             e.printStackTrace();
         }
-        for(int i=0;i<initSize;i++){
-            try {
-                Connection conn=DriverManager.getConnection(url,username,password);
-                connectionsList.add(conn);
-                conn=null;
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        size=initSize;
     }
-
-    public Connection getConnection(){
-        while(size==0){
-            //没有空余连接，先休息着
-            try {
-                Thread.sleep(5);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+    public static Connection getConnection(){
+        Connection connection=null;
+        try {
+            connection=dataSource.getConnection();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        if(size>0){
-            size--;
-            return connectionsList.removeFirst();
-        }
-        return null;
+        return connection;
     }
-    public static void returnConnection(Connection conn){
-        connectionsList.add(conn);
-        size++;
-    }//不直接关闭数据库链接而是返回给类
-
     public static PreparedStatement getPreparedStatement(String sql, String[] args){
         DataBaseManage dbm=new DataBaseManage();
         Connection connection=dbm.getConnection();
@@ -74,7 +51,6 @@ public class DataBaseManage {
         }catch (Exception e){
             e.printStackTrace();
         }
-        DataBaseManage.returnConnection(connection);
         return pres;
     }
 

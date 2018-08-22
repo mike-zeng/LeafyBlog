@@ -9,7 +9,7 @@ public class UserBean {
     }
 
     public void setPassword(String password) {
-        //密码使用加密算法先加密
+        //密码使用加密算法先加密--------
         this.password = password;
 
     }

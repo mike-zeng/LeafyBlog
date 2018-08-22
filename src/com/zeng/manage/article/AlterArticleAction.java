@@ -25,7 +25,6 @@ public class AlterArticleAction extends ActionSupport {
                 return NONE;
             }
             ArticleBean articleBean=articleDao.getArticleById(id,type);
-            System.out.println(articleBean);
             request.setAttribute("id",id);
             request.setAttribute("articleBean",articleBean);
             request.setAttribute("oldType",type);
@@ -35,7 +34,6 @@ public class AlterArticleAction extends ActionSupport {
             String className="com.zeng.manage.article.ArticleBean";
             articleBean=(ArticleBean) JsonDeal.getJsonBean(request,className);
             articleBean.setId(Integer.parseInt(request.getParameter("id")));
-            System.out.println(articleBean);
 
             //如果本身是一篇已经发布了的文章，却要存为草稿，则暂时删除文章，并储存草稿
             if(type.equals("article")&&articleBean.isDraft()){

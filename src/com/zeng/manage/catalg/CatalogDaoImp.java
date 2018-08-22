@@ -19,12 +19,13 @@ public class CatalogDaoImp implements CatalogDao {
 
     @Override
     public  Boolean setCatalog(CatalogBean catalogBean) throws Exception{
-        DataBaseManage dbm=new DataBaseManage();
-        Connection conn=dbm.getConnection();
+        Connection conn=DataBaseManage.getConnection();
         String sql="insert into t_catalog(name) VALUES (?);";
         PreparedStatement pres=conn.prepareStatement(sql);
         pres.setString(1,catalogBean.name);
         boolean ret=pres.execute();
+        pres.close();
+        conn.close();
         return !ret;
     }
 
@@ -63,7 +64,7 @@ public class CatalogDaoImp implements CatalogDao {
         }finally {
             resultSet.close();
             state.close();
-            DataBaseManage.returnConnection(conn);
+
         }
 
         String jsonStr=null;

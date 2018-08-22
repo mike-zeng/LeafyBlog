@@ -92,7 +92,7 @@ public class GetTimeList extends ActionSupport {
             map.put((String)resultSet.getString(1),(String)resultSet.getString(1));
         }
 
-        DataBaseManage.returnConnection(conn);
+//        DataBaseManage.returnConnection(conn);
         resultSet.close();
         statement.close();
 

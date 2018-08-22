@@ -16,7 +16,6 @@ public class DelArticleAction extends ActionSupport {
         response.setCharacterEncoding("utf-8");
         String id=(String) request.getParameter("articleId");
         articleDao.delArticle(id,"t_article");
-        System.out.println("del-------"+id);
         return NONE;
     }
 }
