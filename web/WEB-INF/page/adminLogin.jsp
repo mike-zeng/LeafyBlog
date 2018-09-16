@@ -52,17 +52,6 @@
                            placeholder="请输入您的密码">
                 </div>
 
-                <div class="form-group">
-                    <label for="name">验证码</label>
-                    <input type="text" class="form-control" id="VerificationCode" name="VerificationCode"
-                           placeholder="请输入图片中的数字">
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> 记住登入
-                    </label>
-                </div>
                 <button type="submit" class="btn btn-default" onsubmit="checkAccount()">登入</button>
                 <button type="reset" class="btn btn-default">取消</button>
             </form>

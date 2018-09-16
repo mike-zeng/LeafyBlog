@@ -33,7 +33,6 @@ public class GetDraftListAction extends ActionSupport {
         lastDraft+=1;
         String res=articleDao.queryDraft(lastDraft);
 
-        System.out.println("--------"+res);
         if(!res.equals("{}")){
             Cookie cookie=new Cookie("last_draft",(lastDraft+4)+"");
             response.addCookie(cookie);

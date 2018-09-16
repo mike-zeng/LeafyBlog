@@ -12,13 +12,15 @@
         <script>
             flag=true;
             function like(e) {
+                var id=${requestScope.id};
                 if(flag){
+                    //点赞
+                    var req=new XMLHttpRequest();
+                    var url="addLikes?id="+id;
+                    req.open("POST",url,true);
+                    req.send();
                     e.src="${pageContext.request.contextPath}/source/img/like2.png";
                     flag=false;
-                }else {
-                    e.src="${pageContext.request.contextPath}/source/img/like.png";
-
-                    flag=true;
                 }
             }
         </script>
@@ -31,7 +33,7 @@
                 <h1>${requestScope.title}</h1>
             </div>
                 <div style="margin-bottom: 2%">
-                    <span>时间: 2018.8.20  字数:20000  阅读:500</span>
+                    <span>时间: 2013.1.4</span>
                 </div>
             <hr>
             <div id="test-editormd-view" style="margin-bottom: 5%">
@@ -40,7 +42,7 @@
 
                 <%--点赞--%>
                 <div style="margin-bottom: 5%">
-                    <img style="width: 80px;height: 80px" src="${pageContext.request.contextPath}/source/img/like.png" onclick="like(this)">
+                    <img style="width: 50px;height: 50px" src="${pageContext.request.contextPath}/source/img/${requestScope.image}" onclick="like(this)">
                 </div>
             <hr>
                 <%--导航--%>

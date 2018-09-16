@@ -2,7 +2,6 @@
 //type表示要查询的类型
 //arg为参数
 //page为页数
-var stcticObj={};
 function getArticleList(type,arg,page) {
     var FLAG=page;
     console.log(page);
@@ -20,22 +19,17 @@ function getArticleList(type,arg,page) {
     var obj=new f(type,arg,page);
     console.log(obj);
     var objJson=JSON.stringify(obj);
-    console.log(objJson);
 
     var req=new XMLHttpRequest();
     req.open("POST","getArticleList",true);
     req.setRequestHeader("Content-type","application/json");
 
-    req.send("======"+objJson);//发送json给服务器；
+    req.send(objJson);//发送json给服务器；
 
     req.onreadystatechange=function () {
         if (req.readyState == 4 && req.status == 200) {
             var json = JSON.parse(req.responseText);
             var articleList="";
-
-            var head = '    <div style="margin-left: 2%">' +
-                '        <div id="blog">' +
-                '            <ul>';
 
             for (var a in json) {
                 if(a=="count"){
@@ -66,17 +60,16 @@ function getArticleList(type,arg,page) {
                     "        </div>\n" +
                     "    </div>\n" +
                     "</div>";
-                articleList += article;
+                articleList= article+articleList;
 
             }
-            var end = '            </ul>' +
-                '        </div>' +
-                '    </div>';
 
-            if(articleList.length!=0){
-                var e = document.getElementById("articleList");
-                e.innerHTML = articleList;
-            }
+            if(articleList.length==0){
+                var root=document.getElementById("paging");
+                root.innerHTML="<p style='color: red'>还没有文章!</p>";
+            }//不进行分页
+            var e = document.getElementById("articleList");
+            e.innerHTML = articleList;
 
         }
     }
@@ -157,12 +150,10 @@ function remove(id) {
     var p=document.getElementById("articleList");
     var e=document.getElementById(id);
     p.removeChild(e);
-    console.log("remove-------")
 }
 function alter(id) {
     var req=new XMLHttpRequest();
     var url="alterArticle?articleId="+id;
     req.open("GET",url,true);
     req.send();
-    console.log("test alter")
 }

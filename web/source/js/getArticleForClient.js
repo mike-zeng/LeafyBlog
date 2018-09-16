@@ -13,7 +13,6 @@ function getArticleList(type,arg,page) {
 
     var FLAG=page;
     var e = document.getElementById("articleList");
-    console.log(page);
     if(page=='L'){
         page=Number(getCookie("last_page"))-1;
     }else if (page=="N") {
@@ -40,8 +39,9 @@ function getArticleList(type,arg,page) {
     req.onreadystatechange=function () {
         if (req.readyState == 4 && req.status == 200) {
             var json = JSON.parse(req.responseText);
-           console.log(json);
             var e = document.getElementById("articleList");
+            var article;
+            var articleList=e.innerHTML;
 
             for (var a in json) {
 
@@ -56,59 +56,22 @@ function getArticleList(type,arg,page) {
                 var reading=articleinfo[3];//访问量
                 var comments=articleinfo[4];//评论数
                 var like=articleinfo[5];
-
-                //第一个节点
-                var e1=document.createElement("div");
-                e1.class="article";
-                e1.style.marginTop="5%";
-                e1.onmouseover=function (ev) {
-                    this.style="margin-top: 5%;box-shadow:1px -1px 16px #0F3322;";
-                };
-                e1.onmouseout=function (ev) {
-                    this.style="margin-top: 5%";
-                };
-
-                //第二个节点
-                var e2=document.createElement("div");
-                e2.style="height: 160px;background-color: white;text-align: center;padding: 1% 1% 1% 1%";
-
-                //文章标题
-                var e3=document.createElement("a");
-                e3.href="showArticle?id="+id;//文章链接
-                var e4=document.createElement("h3");
-                e4.appendChild(document.createTextNode(title));
-                e3.appendChild(e4);
-
-                //文章段落内容
-                var e5=document.createElement("p");
-                e5.appendChild(document.createTextNode(content));
-
-                var e6=document.createElement("div");
-                e6.style="margin-bottom: 1%;color: cornflowerblue";
-
-                var e7=document.createElement("span");
-                e7.appendChild(document.createTextNode("阅读: "+reading+" "));
-
-                var e8=document.createElement("span");
-                e8.appendChild(document.createTextNode("评论: "+comments+" "));
-
-                var e9=document.createElement("span");
-                e9.appendChild(document.createTextNode("喜欢: "+like+" "))
-
-                //组合节点
-                e6.appendChild(e7);
-                e6.appendChild(e8);
-                e6.appendChild(e9);
-
-                e2.appendChild(e3);
-                e2.appendChild(e5);
-                e2.appendChild(e6);
-
-                e1.appendChild(e2);
-
-                e.appendChild(e1);
-                console.log(e1);
+                article=" <div class=\"article\" style=\"margin-top: 5%\" onmouseover=\"func1(this)\" onmouseout=\"func2(this)\">\n" +
+                    "            <div style=\"height: 160px;background-color: white;text-align: center;padding: 1% 1% 1% 1%\">\n" +
+                    "                <a href=\"showArticle?id="+id+"\"\"><h3>"+title+"</h3></a>\n" +
+                    "                <p>"+content+"\n" +
+                    "                </p>\n" +
+                    "\n" +
+                    "                <div style=\"margin-bottom: 1%;color: cornflowerblue\">\n" +
+                    "                    <span>阅读: </span>"+reading+"&nbsp;\n" +
+                    "                    <span>评论: </span>"+comments+"&nbsp;\n" +
+                    "                    <span>点赞: </span>"+like+"&nbsp;\n" +
+                    "                </div>\n" +
+                    "            </div>\n" +
+                    "        </div>";
+                articleList=article+articleList;
             }
+            e.innerHTML=articleList;
 
         }
     }

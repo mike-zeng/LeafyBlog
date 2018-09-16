@@ -117,7 +117,7 @@
       </a>
 
       <div class="btn-group-vertical" id="list">
-        <button type="button" class="btn btn-default">留言</button>
+          <a href="/leaveMessage"><button type="button" class="btn btn-default">留言</button></a>
         <button type="button" class="btn btn-default">作者</button>
         <button type="button" class="btn btn-default">关于</button>
       </div>
@@ -128,8 +128,8 @@
   <br>
   <!--设置头像-->
   <div id="photo" style="text-align: center;margin-bottom: 2%;">
-    <img src="${pageContext.request.contextPath}/source/img/index_photo.jpg" style="width: 8%;height: 8%;border-radius: 70%;margin-top: 5%;">
-    <h4>曾宪辉的博客</h4>
+    <img src="${pageContext.request.contextPath}/source/img/index_photo.jpeg" style="width: 8%;height: 8%;border-radius: 70%;margin-top: 5%;">
+    <h4>Blog</h4>
   </div>
   <div style="text-align: center">
 
@@ -167,7 +167,6 @@
   <div id="classificationA">
     <div>
       <span><a href="#" onclick="getCatalog('first','Classification');getArticleList('ALL','','1')"><strong>个人分类</strong></a></span>
-      <%--<span><a href="#"><strong>时间分类</strong></a></span>--%>
     </div>
     <hr>
     <!--分类-->
@@ -175,7 +174,6 @@
         <script>
             getCatalog('first','Classification');
         </script>
-
     </div>
       <br>
     <div style="position: absolute;top: 180px;left: 65px">
@@ -191,7 +189,6 @@
     <div id="classificationB">
         <div>
             <span><a href="#" onclick="getCatalog('first','Time');getArticleList('ALL','','1')"><strong>时间分类</strong></a></span>
-            <%--<span><a href="#"><strong>时间分类</strong></a></span>--%>
         </div>
         <hr>
         <!--分类-->

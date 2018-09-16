@@ -15,4 +15,9 @@ public interface ArticleDao{
     public ArticleBean getArticleById(String id,String table)throws Exception;
     //获取草稿
     public String queryDraft(int start)throws Exception;
+
+    public void addRead(String id)throws Exception;
+
+    public void addLike(String id) throws Exception;
+
 }

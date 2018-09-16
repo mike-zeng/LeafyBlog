@@ -2,10 +2,10 @@ package com.zeng.manage.article;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.zeng.json.JsonDeal;
-import net.sf.json.JSONObject;
+import com.zeng.manage.statistics.StatisticsDao;
+import com.zeng.manage.statistics.StatisticsDaoImp;
 import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
@@ -15,7 +15,6 @@ public class GetArticleListAction extends ActionSupport {
    private static ArticleDao articleDao=new ArticleDaoImp();
 
     public String execute() throws Exception{
-//        System.out.println();
         HttpServletRequest request= ServletActionContext.getRequest();
         HttpServletResponse response=ServletActionContext.getResponse();
         request.setCharacterEncoding("utf-8");
@@ -24,7 +23,7 @@ public class GetArticleListAction extends ActionSupport {
 
         String className="com.zeng.manage.article.TypeBean";
         typeBean=(TypeBean) JsonDeal.getJsonBean(request,className);
-        System.out.println("-----"+typeBean);
+
 
         Writer writer=response.getWriter();
         String json=null;
@@ -42,6 +41,7 @@ public class GetArticleListAction extends ActionSupport {
         }
 
         json=articleDao.queryArticle(typeBean.getType(),typeBean.getArg(),typeBean.getPage());
+        System.out.println(json);
         writer.write(json);
         writer.close();
         return NONE;

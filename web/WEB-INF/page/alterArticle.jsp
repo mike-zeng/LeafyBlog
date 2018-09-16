@@ -39,7 +39,9 @@
             req.open("POST",url,true);
             req.setRequestHeader("Content-type","application/json");
             req.send(objJson);//发送json给服务器；
-            console.log("test alter------")
+
+            root=document.getElementById("info");
+            root.innerHTML="<p style='color: red'>修改成功!</p>"
         }
     </script>
 </head>

@@ -21,8 +21,7 @@
                 flag=true;
             }
         }
-    </scri12ypt>
-
+    </script>
 
 </head>
 <body>
@@ -64,7 +63,6 @@
 </div>
 
 <script type="text/javascript">
-    <%--var content ='${requestScope.article}'; //使用el表达式获取后台返回的markdown内容--%>
     var converter = new showdown.Converter(); //初始化转换器
     var htmlcontent  = converter.makeHtml(${requestScope.article}); //将MarkDown转为html格式的内容
     var article=document.getElementById("article");

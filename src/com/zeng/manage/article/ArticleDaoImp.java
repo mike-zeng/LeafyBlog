@@ -2,8 +2,8 @@ package com.zeng.manage.article;
 
 import com.zeng.database.DataBaseManage;
 import org.apache.struts2.ServletActionContext;
-import org.junit.Test;
 
+import javax.print.attribute.standard.PresentationDirection;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
@@ -19,14 +19,13 @@ public class ArticleDaoImp implements ArticleDao{
     public boolean addArticle(ArticleBean articleBean) throws Exception {
         if(articleBean.isComplete()){
             String sql=null;
-//            判断是草稿还是正式文章
+            //判断是草稿还是正式文章
             if(articleBean.getDraft()){
                 sql="insert into t_draft(title,article,tag,kind,classification) values(?,?,?,?,?)";
             }else{
                 sql="insert into t_article(title,article,tag,kind,classification) values(?,?,?,?,?)";
             }
-
-
+            //万恶的jdbc代码....
             Connection conn= DataBaseManage.getConnection();
             PreparedStatement prep=conn.prepareStatement(sql);
             prep.setString(1,articleBean.getTitle());
@@ -34,13 +33,13 @@ public class ArticleDaoImp implements ArticleDao{
             prep.setString(3,articleBean.getTag());
             prep.setString(4,articleBean.getKind());
             prep.setString(5,articleBean.getClassification());
-
+            //写入数据库
             int ret=prep.executeUpdate();
+            prep.close();
+            conn.close();
             if(ret==0){
                 return false;
             }
-            prep.close();
-            conn.close();
         }else{
             return false;
         }
@@ -64,6 +63,7 @@ public class ArticleDaoImp implements ArticleDao{
         pres.setString(1,id);
         int ret=pres.executeUpdate();
         pres.close();
+        conn.close();
 
         if(ret==0){
             return false;
@@ -214,6 +214,24 @@ public class ArticleDaoImp implements ArticleDao{
         return res;
     }
 
+    @Override
+    public void addRead(String id) throws Exception {
+        String sql="update t_article set reading=reading+1 where id=?";
+        Connection conn=DataBaseManage.getConnection();
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1,id);
+        prep.executeUpdate();
+    }
+
+    @Override
+    public void addLike(String id)throws Exception{
+        String sql="update t_article set like=like+1 where id=?";
+        Connection conn=DataBaseManage.getConnection();
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1,id);
+        prep.executeUpdate();
+    }
+
     private String returnList(PreparedStatement pres, int page) throws Exception{
         ResultSet resultSet=null;
         int start=(page-1)*5+1,end=start+4;
@@ -247,7 +265,7 @@ public class ArticleDaoImp implements ArticleDao{
                 time=resultSet.getString("time");//获取文章时间
                 comments=resultSet.getInt("comments");
                 reading=resultSet.getInt("reading");
-                like=resultSet.getInt("reading");
+                like=resultSet.getInt("like");
                 res+=("\""+id+"\""+":"+"["+ "\""+title+"\""+ "," +"\""+article+"\""+","+"\""+time+"\""+ "," +"\""+reading+"\""+ "," +"\""+comments+"\""+ "," +"\""+like+"\""+"]");
                 count++;
             }

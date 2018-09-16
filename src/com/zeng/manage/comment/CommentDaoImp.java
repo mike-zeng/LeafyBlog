@@ -15,8 +15,7 @@ public class CommentDaoImp implements CommenDao{
     public String getComment(String articleid) throws Exception{
         String sql="select * from t_comment where article=? order by t_comment.time desc";
         String[] args={articleid};
-        PreparedStatement pres=DataBaseManage.getPreparedStatement(sql,args);
-        ResultSet resultSet=DataBaseManage.execuePres(DataBaseManage.EXECUTEQUERY,pres);
+        ResultSet resultSet=new DataBaseManage().execueSql(DataBaseManage.EXECUTEQUERY,sql,args);
 
         Map<String,List> map=new HashMap<>();
         String res=null;
@@ -37,8 +36,7 @@ public class CommentDaoImp implements CommenDao{
     public String getCommentList(int page) throws Exception{
         String sql="select * from t_comment order by t_comment.time desc";
         String[] args={};
-        PreparedStatement pres=DataBaseManage.getPreparedStatement(sql,args);
-        ResultSet resultSet=DataBaseManage.execuePres(DataBaseManage.EXECUTEQUERY,pres);
+        ResultSet resultSet=new DataBaseManage().execueSql(DataBaseManage.EXECUTEQUERY,sql,args);
 
         int start=(page-1)*5+1;
         int end=start+4;
@@ -63,8 +61,6 @@ public class CommentDaoImp implements CommenDao{
 
         JSONObject jsonObject=JSONObject.fromObject(map);
         String json=jsonObject.toString();
-
-        pres.close();
         resultSet.close();
         return json;
     }
@@ -73,9 +69,7 @@ public class CommentDaoImp implements CommenDao{
     public String setComment(CommentBean commentBean)throws Exception {
         String sql="insert into t_comment(article, name, content) VALUES (?,?,?);";
         String[] args={commentBean.getArticle(),commentBean.getName(),commentBean.getContent()};
-        PreparedStatement pres=DataBaseManage.getPreparedStatement(sql,args);
-        DataBaseManage.execuePres(DataBaseManage.EXECUTEUPDATE,pres);
-        pres.close();
+        DataBaseManage.execueSql(DataBaseManage.EXECUTEUPDATE,sql,args);
         return null;
     }
 
@@ -83,23 +77,8 @@ public class CommentDaoImp implements CommenDao{
     public String delComment(String id)throws Exception{
         String sql="delete from t_comment where id=?";
         String[] args={id};
-        PreparedStatement pres=DataBaseManage.getPreparedStatement(sql,args);
-        DataBaseManage.execuePres(DataBaseManage.EXECUTEUPDATE,pres);
-        pres.close();
+        DataBaseManage.execueSql(DataBaseManage.EXECUTEUPDATE,sql,args);
         return null;
-    }
-
-    @Test
-    public void demo01()throws Exception{
-//        CommentBean commentBean=new CommentBean();
-//        commentBean.setArticle("2");
-//        commentBean.setName("zeng");
-//        commentBean.setContent("very good");
-//        setComment(commentBean);
-
-//        delComment("2");
-//        getCommentList(1);
-//        getComment("2");
     }
 
 }

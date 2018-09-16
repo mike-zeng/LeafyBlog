@@ -7,11 +7,9 @@ function getDraftList(flag) {
         for(var i=childs.length-1;i>=0;i--){
             root.removeChild(childs[i]);
         }
-        console.log("clear--------")
     }
 
 
-    console.log("test------------")
     var req=new XMLHttpRequest();
     req.open("GET","getDraftList",true);
     req.onreadystatechange=function () {
@@ -53,9 +51,7 @@ function getDraftList(flag) {
         }
 
     }
-
     req.send();
-
 }
 
 function clearCookie(name) {
@@ -81,7 +77,6 @@ function removeDraft(id) {
     for(var i=childs.length-1;i>=0;i--){
         if(childs[i].id==target){
             root.removeChild(childs[i]);
-            console.log("del draft--------");
         }
     }
 }

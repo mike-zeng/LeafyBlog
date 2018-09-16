@@ -28,7 +28,6 @@ public class DelDraftAction extends ActionSupport {
                 response.addCookie(cookies[i]);
             }
         }
-
         return NONE;
     }
 }

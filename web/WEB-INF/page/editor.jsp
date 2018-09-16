@@ -30,7 +30,7 @@
 </head>
 <body style="background-color: rgba(143,220,252,0.29)">
 <ul id="myTab" class="nav nav-tabs">
-    <li><a href="#home" data-toggle="tab">个人中心</a></li>
+    <%--<li><a href="#home" data-toggle="tab">个人中心</a></li>--%>
     <li class="active">
         <a href="#write" data-toggle="tab">新的文章</a>
     </li>
@@ -46,7 +46,6 @@
     <div class="tab-pane fade" id="home">
         <h2>待开发home</h2>
     </div>
-
     <!--markdown　新的文章-->
     <div class="tab-pane fade in active" id="write">
         <!--markdown工作区-->
@@ -62,7 +61,7 @@
                 </div>
             </header>
             <div id="test-editormd">
-                <textarea style="display:none;" id="text">##剑气纵横三万里 一剑光寒十九洲</textarea>
+                <textarea style="display:none;" id="text">##开始书写你的博客</textarea>
             </div>
         </div>
     </div>
@@ -86,16 +85,16 @@
                     我的文章
                 </div>
                 <div class="panel-body">
-                    <%--<a onclick="myGetClassification()">查看个人分类</a>--%>
+                    <label>数量: </label><p>15</p>
+                    <label>阅读量: </label><p>2000</p>
                 </div>
             </div>
 
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" onclick="getArticleList('ALL','','1')">
                     个人分类
                 </div>
                 <div class="panel-body">
-                    <%--<a onclick="myGetClassification()">查看个人分类</a>--%>
                     <div id="PersonalClassification">
                     </div>
 

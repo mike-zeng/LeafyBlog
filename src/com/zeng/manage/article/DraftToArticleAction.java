@@ -17,9 +17,9 @@ public class DraftToArticleAction extends ActionSupport {
 
         String id=request.getParameter("id");
 
-        ArticleBean articleBean=articleDao.getArticleById(id,"t_draft");
+        ArticleBean articleBean=articleDao.getArticleById(id,"draft");
 
-        System.out.println(articleBean);
+        System.out.println(articleBean+"=========");
         if(articleBean!=null){
             articleBean.setDraft(false);
             articleDao.addArticle(articleBean);//添加文章

@@ -8,6 +8,9 @@ import java.sql.Connection;
 import com.zeng.database.DataBaseManage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.apache.commons.codec.digest.DigestUtils;
+
 
 public class LoginAction extends ActionSupport implements ModelDriven<UserBean> {
     UserBean user=new UserBean();
@@ -20,7 +23,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<UserBean> 
     public String execute() throws Exception {
         if(judge()){
             HttpServletRequest request= ServletActionContext.getRequest();//设置session
-            request.getSession(true).setAttribute(user.getName(),user.getPassword());
+            request.getSession(true).setAttribute("LoginFlag",true);
             return SUCCESS;//成功则展示后台页面，并设置登入信息的session信息
         }else{
             return ERROR;//错误则回到登入页面
@@ -35,7 +38,14 @@ public class LoginAction extends ActionSupport implements ModelDriven<UserBean> 
         try {
             pres=conn.prepareStatement("SELECT * FROM t_root WHERE name=? AND password=?");
             pres.setString(1,user.getName());
-            pres.setString(2,user.getPassword());
+            user.getPassword();
+            String pass=user.getPassword();
+
+            for(int i=0;i<3;i++){
+                pass=DigestUtils.md5Hex(pass);
+            }
+
+            pres.setString(2,pass);
 
             result=pres.executeQuery();
             if(result!=null&&result.next()){
@@ -43,7 +53,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<UserBean> 
             }else{
               return false;
             }
-        }catch (Exception e){
+        }catch (SQLException e){
             e.printStackTrace();;
         }finally {
             try {

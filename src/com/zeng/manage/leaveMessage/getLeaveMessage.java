@@ -32,15 +32,12 @@ public class getLeaveMessage extends ActionSupport {
         lastLeaveMessage+=1;
         System.out.println(lastLeaveMessage);
         String res=leaveMessageDaoIml.getLeaveMessageList(lastLeaveMessage);
-        System.out.println("--------"+res);
+
         if(!res.equals("{}")){
             Cookie cookie=new Cookie("last_lm",(lastLeaveMessage+4)+"");
             response.addCookie(cookie);
         }
         //设置当前读取到的最后一条
-
-
-        System.out.println(res);
         writer.write(res);
         writer.close();
         return NONE;

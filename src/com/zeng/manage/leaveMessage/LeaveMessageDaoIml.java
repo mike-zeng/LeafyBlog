@@ -12,11 +12,12 @@ public class LeaveMessageDaoIml implements LeaveMessageDao{
     public String getLeaveMessageList(int num) throws Exception {
         String sql="select * from t_leaveMessage order by time desc";
         String[] s={};
-        PreparedStatement preparedStatement=DataBaseManage.getPreparedStatement(sql,s);
-        ResultSet resultSet=DataBaseManage.execuePres(DataBaseManage.EXECUTEQUERY,preparedStatement);
+        Connection conn=DataBaseManage.getConnection();
+        PreparedStatement pres=conn.prepareStatement(sql);
+        ResultSet resultSet=pres.executeQuery();
         String json="{",id,user,content,time;
         int flag=1;
-        //id,name.content
+
         while (resultSet.next()){
             if(flag<num){
                 flag++;
@@ -41,18 +42,26 @@ public class LeaveMessageDaoIml implements LeaveMessageDao{
     }
 
     @Override
-    public boolean addLeaveMessage() throws Exception {
+    public boolean addLeaveMessage(String user,String content) throws Exception {
+        Connection conn=DataBaseManage.getConnection();
+        String sql="insert into t_leaveMessage(user,content) values(?,?)";
+        PreparedStatement pres=conn.prepareStatement(sql);
+        pres.setString(1,user);
+        pres.setString(2,content);
+        pres.executeUpdate();
+        pres.close();
+        conn.close();
         return false;
     }
 
     @Override
     public boolean delLeaveMessage(String id) throws Exception {
-        DataBaseManage dbm=new DataBaseManage();
-        Connection conn=dbm.getConnection();
+        Connection conn=DataBaseManage.getConnection();
         String sql="delete from t_leaveMessage where id=?;";
         PreparedStatement pres=conn.prepareStatement(sql);
         pres.setString(1,id);
         pres.executeUpdate();//执行
+        conn.close();
         return true;
     }
 }

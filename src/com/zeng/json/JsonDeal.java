@@ -26,7 +26,6 @@ public class JsonDeal {
             }
 
             String json=new String(buffer,"utf-8");
-            System.out.println(json);
             Gson gson=new Gson();
             retObj=gson.fromJson(json,c);
         }
